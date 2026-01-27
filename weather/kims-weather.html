@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kim's Weather Page</title>
+  <style>
+    /* ===========================================
+       CSS VARIABLES - Edit these to change colors/sizes
+       =========================================== */
+    :root {
+      --bg-color: #000044;
+      --text-color: #ffffff;
+      --link-color: #ffff00;
+      --visited-link: #66ccff;
+      --card-bg: #000066;
+      --card-border: #4444aa;
+      --max-width: 1024px;
+      --card-padding: 1rem;
+    }
+
+    /* ===========================================
+       BASE STYLES
+       =========================================== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--link-color);
+    }
+
+    a:visited {
+      color: var(--visited-link);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    /* ===========================================
+       LAYOUT - Simple centered column of cards
+       =========================================== */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 3px solid var(--card-border);
+      border-radius: 8px;
+      padding: var(--card-padding);
+      margin-bottom: 1rem;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* ===========================================
+       RESPONSIVE IFRAMES
+       =========================================== */
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .iframe-container iframe {
+      width: 100%;
+      border: none;
+    }
+
+    /* Fixed heights for different content types */
+    .iframe-tall { height: 1200px; }
+    .iframe-medium { height: 800px; }
+    .iframe-forecast { height: 650px; }
+    .iframe-afd { height: 1800px; }
+
+    /* ===========================================
+       IMAGES - Responsive
+       =========================================== */
+    .card img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* ===========================================
+       LINK LISTS
+       =========================================== */
+    .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .link-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===========================================
+       SECTION HEADERS
+       =========================================== */
+    .section-header {
+      background-color: var(--card-border);
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      margin: 0;
+    }
+
+    /* ===========================================
+       RESPONSIVE ADJUSTMENTS
+       =========================================== */
+    @media (max-width: 600px) {
+      body {
+        padding: 0.5rem;
+      }
+      
+      .card {
+        padding: 0.75rem;
+      }
+
+      .iframe-tall { height: 800px; }
+      .iframe-medium { height: 500px; }
+      .iframe-forecast { height: 500px; }
+      .iframe-afd { height: 1200px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ SAN FRANCISCO SECTION ============ -->
+  <div class="section-header">
+    <h2>San Francisco</h2>
+  </div>
+
+  <!-- Satellite Links -->
+  <div class="card">
+    <h2>GOES Satellite Imagery</h2>
+    <ul class="link-list">
+      <li>Visible Satellite: <a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestconusband02&lat=37.8&lon=-122.3&zoom=1&width=1000&height=800&quality=100&mapcolor=cyan&map=county">GOES-West 0.64 µm CONUS</a></li>
+      <li>Visible Animation: <a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestconusband02&lat=37.8&lon=-122.3&zoom=1&width=1000&height=800&type=Animation&numframes=15&quality=100&mapcolor=cyan&map=county">GOES-West 0.64 µm CONUS</a></li>
+      <li>Infrared Satellite: <a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestconusband14&lat=37.8&lon=-122.3&zoom=1&width=1000&height=800&quality=100&mapcolor=cyan&map=county">GOES-West 11.20 µm CONUS</a></li>
+      <li>Infrared Animation: <a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestconusband14&lat=37.8&lon=-122.3&zoom=1&width=1000&height=800&type=Animation&numframes=15&quality=100&mapcolor=cyan&map=county">GOES-West 11.20 µm CONUS</a></li>
+    </ul>
+  </div>
+
+  <!-- Fog Today - can't embed, they block iframes -->
+  <div class="card">
+    <h2>Current Fog</h2>
+    <p style="text-align: center; font-size: 1.2rem;">
+      <a href="https://fog.today" target="_blank">🌫️ fog.today - Karl the Fog Tracker</a>
+    </p>
+  </div>
+
+  <!-- Radar - Windy replaces Dark Sky -->
+  <div class="card">
+    <h2>Radar</h2>
+    <div class="iframe-container">
+      <iframe src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=in&metricTemp=°F&metricWind=mph&zoom=8&overlay=radar&product=radar&level=surface&lat=37.78&lon=-122.42" title="Bay Area Radar" class="iframe-medium"></iframe>
+    </div>
+  </div>
+
+  <!-- NWS Current Conditions -->
+  <div class="card">
+    <h2>Current Conditions</h2>
+    <div class="iframe-container">
+      <iframe src="https://forecast.weather.gov/MapClick.php?lon=-122.47558663559971&lat=37.775311616556365" title="San Francisco Current Conditions" class="iframe-medium"></iframe>
+    </div>
+  </div>
+
+  <!-- NWS 7-Day Forecast -->
+  <div class="card">
+    <h2>7-Day Forecast</h2>
+    <div class="iframe-container">
+      <iframe src="https://forecast.weather.gov/MapClick.php?lat=37.7753&lon=-122.4756&unit=0&lg=english&FcstType=text&TextType=1" title="San Francisco 7-Day Forecast" class="iframe-forecast"></iframe>
+    </div>
+  </div>
+
+  <!-- Area Forecast Discussion -->
+  <div class="card">
+    <h2>Area Forecast Discussion</h2>
+    <div class="iframe-container">
+      <iframe src="https://forecast.weather.gov/product.php?site=MTR&issuedby=MTR&product=AFD&format=txt&version=1&glossary=0" title="Area Forecast Discussion" class="iframe-afd"></iframe>
+    </div>
+  </div>
+
+  <!-- 24-hour Precipitation -->
+  <div class="card">
+    <h2>24-Hour Rain</h2>
+    <img src="https://www.cnrfc.noaa.gov/images/precipMaps/sf_24HRprecip.png" alt="24-hour precipitation map for San Francisco Bay Area">
+  </div>
+
+  <!-- ============ FIRE & AIR QUALITY SECTION ============ -->
+  <div class="section-header">
+    <h2>Fire &amp; Air Quality</h2>
+  </div>
+
+  <!-- PurpleAir - hyperlocal air quality sensors -->
+  <div class="card">
+    <h2>Air Quality - PurpleAir Sensors</h2>
+    <div class="iframe-container">
+      <iframe src="https://map.purpleair.com/air-quality-standards-us-epa-aqi?opt=%2F1%2Flp%2Fa10%2Fp604800%2FcC0#10.5/37.7749/-122.4194" title="PurpleAir Bay Area" class="iframe-medium"></iframe>
+    </div>
+  </div>
+
+  <!-- Fire/Smoke Maps -->
+  <div class="card">
+    <h2>Fire &amp; Smoke</h2>
+    <ul class="link-list">
+      <li><a href="https://www.fire.ca.gov/incidents" target="_blank">CAL FIRE Active Incidents</a></li>
+      <li><a href="https://fire.airnow.gov/?lat=37.7749&lng=-122.4194&zoom=8" target="_blank">AirNow Fire &amp; Smoke Map</a></li>
+      <li><a href="https://www.ospo.noaa.gov/Products/land/hms.html" target="_blank">NOAA Smoke Analysis</a></li>
+      <li><a href="https://firms.modaps.eosdis.nasa.gov/map/#d:24hrs;@-122.4,37.8,9.0z" target="_blank">NASA FIRMS Active Fires</a></li>
+    </ul>
+  </div>
+
+  <!-- ============ MARINE & TIDES SECTION ============ -->
+  <div class="section-header">
+    <h2>Marine &amp; Tides</h2>
+  </div>
+
+  <!-- Tides - SF Station -->
+  <div class="card">
+    <h2>San Francisco Tides</h2>
+    <div class="iframe-container">
+      <iframe src="https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=9414290&units=standard&bdate=&edate=&timezone=LST/LDT&clock=12hour&datum=MLLW&interval=hilo&action=" title="SF Tide Predictions" class="iframe-medium"></iframe>
+    </div>
+  </div>
+
+  <!-- Marine Forecast -->
+  <div class="card">
+    <h2>Marine Forecast - SF Bay</h2>
+    <div class="iframe-container">
+      <iframe src="https://forecast.weather.gov/MapClick.php?zoneid=PZZ545&TextType=1" title="SF Bay Marine Forecast" class="iframe-forecast"></iframe>
+    </div>
+  </div>
+
+  <!-- Buoy Data & Marine Links -->
+  <div class="card">
+    <h2>Buoys &amp; Observations</h2>
+    <ul class="link-list">
+      <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=46026" target="_blank">NDBC Buoy 46026 - SF (18nm W)</a></li>
+      <li><a href="https://www.ndbc.noaa.gov/station_page.php?station=46237" target="_blank">NDBC Buoy 46237 - SF Bar</a></li>
+      <li><a href="https://tidesandcurrents.noaa.gov/ports/index.html?port=sf" target="_blank">NOAA PORTS - SF Bay</a></li>
+      <li><a href="https://tidesandcurrents.noaa.gov/cdata/StationInfo?id=s06010" target="_blank">Golden Gate Currents</a></li>
+      <li><a href="https://forecast.weather.gov/sew/ofs/ofs_sfports.htm" target="_blank">SF Bay Oceanographic Forecast</a></li>
+    </ul>
+  </div>
+
+  <!-- Nullschool Wind -->
+  <div class="card">
+    <h2>Wind Visualization</h2>
+    <div class="iframe-container">
+      <iframe src="https://earth.nullschool.net/#current/wind/surface/level/orthographic=-123.05,38.17,2048" title="Nullschool Wind Model" class="iframe-medium"></iframe>
+    </div>
+  </div>
+
+  <!-- ============ EARTHQUAKES SECTION ============ -->
+  <div class="section-header">
+    <h2>Earthquakes</h2>
+  </div>
+
+  <div class="card">
+    <ul class="link-list">
+      <li><a href="https://earthquake.usgs.gov/earthquakes/map/?extent=29.32472,-130.29785&extent=44.27667,-107.70996&listOnlyShown=true&timeZone=utc&settings=true">USGS Latest Earthquakes - California/Nevada</a></li>
+      <li><a href="https://earthquake.usgs.gov/earthquakes/map/?extent=36.26642,-124.9585&extent=38.97222,-119.79492&listOnlyShown=true&showUSFaults=true&baseLayer=terrain">USGS Bay Area Detail</a></li>
+    </ul>
+  </div>
+
+  <!-- ============ NORTHERN CALIFORNIA SECTION ============ -->
+  <div class="section-header">
+    <h2>Northern California</h2>
+  </div>
+
+  <div class="card">
+    <h2>West Coast Satellite</h2>
+    <ul class="link-list">
+      <li><a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestpacusband02&lat=38&lon=-122&zoom=1&width=1000&height=800&quality=100&mapcolor=cyan&map=county">GOES-West Pacific US Visible</a></li>
+      <li><a href="https://weather.msfc.nasa.gov/cgi-bin/get-abi?satellite=GOESWestpacusband14&lat=38&lon=-122&zoom=1&width=1000&height=800&quality=100&mapcolor=cyan&map=county">GOES-West Pacific US Infrared</a></li>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
